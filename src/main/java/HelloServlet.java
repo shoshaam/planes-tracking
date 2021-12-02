@@ -1,4 +1,5 @@
-import javax.servlet.ServletException;
+import com.google.gson.JsonObject;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,13 +10,15 @@ import java.io.PrintWriter;
 @WebServlet("/hello")
 public class HelloServlet extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter printWriter = resp.getWriter();
-        printWriter.write("Hello!");
-        printWriter.close();
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
 
+        JsonObject json = new JsonObject();
+        json.addProperty("HelloWorld", "Hello world!");
+        out.print(json);
+        out.flush();
 
     }
 }
