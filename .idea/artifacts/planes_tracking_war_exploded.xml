@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="planes-tracking:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/planes_tracking_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="planes-tracking/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="planes-tracking" />
+        </element>
+        <element id="directory" name="src">
+          <element id="dir-copy" path="$PROJECT_DIR$/src" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
