@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <servlet>
-        <servlet-name>HelloWorld</servlet-name>
-        <servlet-class>HelloServlet</servlet-class>
+        <servlet-name>AirportInfo</servlet-name>
+        <servlet-class>AirportServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>HelloWorld</servlet-name>
-        <url-pattern>/hello</url-pattern>
+        <servlet-name>AirportInfo</servlet-name>
+        <url-pattern>/airport/*</url-pattern>
     </servlet-mapping>
 </web-app>
