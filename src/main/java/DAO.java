@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -5,5 +6,5 @@ import java.util.ArrayList;
  * @param <T> - домэйн класс
  */
 public abstract class DAO<T> {
-    public abstract T getById(int id);
+    public abstract T getById(int id) throws SQLException;
 }

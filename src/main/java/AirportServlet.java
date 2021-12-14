@@ -1,4 +1,4 @@
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -6,28 +6,33 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class AirportServlet extends HttpServlet {
-    private final AirportService service = new AirportService();
+public class AirportServlet extends HttpServlet implements ServiceCreator {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        Airport airport = service.getAllInformationById(getAirportId(request));
 
-        JsonObject json = new JsonObject();
-        json.addProperty("AirportId", airport.getId());
-        json.addProperty("IataCode", airport.getIataCode());
-        json.addProperty("AirportName", airport.getAirportName());
+        AirportService service = createService();
+        Object queryResult = receiveInformation(request, service);
+        JsonSerializer js = new JsonSerializer();
+        JsonElement json = js.serialize(queryResult);
+
         out.print(json);
         out.flush();
 
     }
 
-    private int getAirportId(HttpServletRequest request){
-        if(request.getPathInfo() != null){
-            return Integer.parseInt(request.getPathInfo().replace("/", ""));
+    private Object receiveInformation(HttpServletRequest request, AirportService service){
+        if(request.getPathInfo() == null || request.getPathInfo().equals("/")){
+            return service.getAll();
         }
-        return -1;
+        int id = Integer.parseInt(request.getPathInfo().replace("/", ""));
+        return service.getById(id);
+    }
+
+    @Override
+    public AirportService createService() {
+        return new AirportInformationService();
     }
 }

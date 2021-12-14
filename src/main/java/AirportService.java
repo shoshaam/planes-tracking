@@ -1,9 +1,20 @@
 /**
- * Класс сервиса аэропорта. Будет сожержать всю??? безнес логику
+ * Интерфейс для всех сервисов аэропорта
  */
-public class AirportService {
-    public Airport getAllInformationById(int id){
-        DAO<Airport> dao = new AirportDAO();
-        return dao.getById(id);
-    }
+public interface AirportService{
+
+    /**
+     * Возвращает список всех объектов из базы
+     * @return - список с объектами типа Т
+     */
+    Object getAll();
+
+    /**
+     * Возвращает обеъект с заданным айди
+     * @param id - айди объекта
+     * @return - обект типа T
+     */
+    Object getById(int id);
+
+
 }

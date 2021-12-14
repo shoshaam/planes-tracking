@@ -3,10 +3,10 @@ import java.sql.*;
 /**
  * Реализация дао для аэропорта
  */
-public class AirportDAO extends DAO <Airport>{
+public class AirportDAO extends DAO<Airport> {
 
     @Override
-    public Airport getById(int id) {
+    public Airport getById(int id) throws SQLException {
         Connection connection = MySQLConnection.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM airports WHERE id = ?");
@@ -19,6 +19,7 @@ public class AirportDAO extends DAO <Airport>{
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new SQLException();
         }
         return null;
     }
