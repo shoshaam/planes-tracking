@@ -1,7 +1,7 @@
 /**
  * Класс сервиса аэропорта. Бизнес логика
  */
-public class AirportInformationService implements AirportService{
+public class AirportInfoService implements AirportService{
     @Override
     public Object getAll() {
         return 10;

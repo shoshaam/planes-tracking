@@ -5,14 +5,14 @@ public interface AirportService{
 
     /**
      * Возвращает список всех объектов из базы
-     * @return - список с объектами типа Т
+     * @return - список с объектами
      */
     Object getAll();
 
     /**
      * Возвращает обеъект с заданным айди
      * @param id - айди объекта
-     * @return - обект типа T
+     * @return - объект
      */
     Object getById(int id);
 
