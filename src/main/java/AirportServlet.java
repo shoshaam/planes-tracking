@@ -1,3 +1,6 @@
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,11 +11,11 @@ public class AirportServlet extends HttpServlet{
 
     private Serializer serializer;
     private AirportService service;
-    {
-        ServiceCreator scr = new AirportInfoCreator();
-        service = scr.createService();
-        SerializerCreator serCreator = new JsonSerializerCreator();
-        serializer = serCreator.createSerializer();
+
+    @Override
+    public void init(ServletConfig config){
+        service = AirportInfoCreator.createService();
+        serializer = JsonSerializerCreator.createSerializer();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

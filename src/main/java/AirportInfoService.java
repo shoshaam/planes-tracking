@@ -1,14 +1,19 @@
+import java.util.ArrayList;
+
 /**
  * Класс сервиса аэропорта. Бизнес логика
  */
 public class AirportInfoService implements AirportService{
+
     @Override
-    public Object getAll() {
-        return 10;
+    public ArrayList<Airport> getAll() {
+        ArrayList<Airport> airports = new ArrayList<>();
+        airports.add(new Airport(1,"JND55DS", "Minsk"));
+        return airports;
     }
 
     @Override
-    public Object getById(int id){
-        return 1;
+    public Airport getById(int id){
+        return new Airport(1,"JND55DS", "Minsk");
     }
 }
