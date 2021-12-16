@@ -1,24 +1,21 @@
-import java.util.ArrayList;
+import java.util.Collection;
 
 /**
- * Интерфейс для всех сервисов аэропорта
+ * Интерфейс сервисов аэропорта
  */
 public interface AirportService{
 
     /**
-     * Возвращает список всех объектов из базы
-     * @return - список с объектами
+     * Возвращает список всех объектов
+     * @return - коллекция с объектами
      */
-    //???
-    ArrayList getAll();
+    Collection getAll();
 
     /**
      * Возвращает обеъект с заданным айди
      * @param id - айди объекта
      * @return - объект
      */
-    //???
-    Object getById(int id);
-
+    Airport getById(Long id) throws ElementNotFoundException;
 
 }

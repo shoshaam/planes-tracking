@@ -1,6 +1,4 @@
-import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +12,7 @@ public class AirportServlet extends HttpServlet{
 
     @Override
     public void init(ServletConfig config){
-        service = AirportInfoCreator.createService();
+        service = AirportServiceCreator.createService();
         serializer = JsonSerializerCreator.createSerializer();
     }
 
@@ -22,20 +20,26 @@ public class AirportServlet extends HttpServlet{
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-
-        Object queryResult = receiveInformation(request, service);
-        String json = serializer.serialize(queryResult);
-
-        out.print(json);
-        out.flush();
-
+        try {
+            Object queryResult = receiveInformation(request, service);
+            String json = serializer.serialize(queryResult);
+            out.print(json);
+            out.flush();
+        } catch (ElementNotFoundException e) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
 
-    private Object receiveInformation(HttpServletRequest request, AirportService service){
+    private Object receiveInformation(HttpServletRequest request, AirportService service) throws ElementNotFoundException {
         if(request.getPathInfo() == null || request.getPathInfo().equals("/")){
             return service.getAll();
         }
-        int id = Integer.parseInt(request.getPathInfo().replace("/", ""));
-        return service.getById(id);
+        Long id = Long.parseLong(request.getPathInfo().replace("/", ""));
+        try {
+            return service.getById(id);
+        } catch (ElementNotFoundException e) {
+            //тут ещё должен быть логер, но его нет
+            throw e;
+        }
     }
 }

@@ -2,18 +2,18 @@
  * Домэйн класс аэропорта
  */
 public class Airport {
-    int id;
+    Long id;
     String iataCode;
     String airportName;
 
-    Airport(int id, String airportName, String iataCode){
+    public Airport(Long id, String iataCode, String airportName) {
         this.id = id;
         this.iataCode = iataCode;
         this.airportName = airportName;
     }
 
-    public int getId(){
-        return this.id;
+    public Long getId() {
+        return id;
     }
 
     public String getIataCode(){

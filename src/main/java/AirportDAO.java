@@ -13,7 +13,7 @@ public class AirportDAO extends DAO<Airport> {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
-                return new Airport(resultSet.getInt("id"),
+                return new Airport(resultSet.getLong("id"),
                         resultSet.getString("iata_code"),
                         resultSet.getString("airport_name"));
             }
