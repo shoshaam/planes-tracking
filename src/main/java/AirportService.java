@@ -1,4 +1,4 @@
-import java.util.Collection;
+import java.util.Map;
 
 /**
  * Интерфейс сервисов аэропорта
@@ -9,13 +9,13 @@ public interface AirportService{
      * Возвращает список всех объектов
      * @return - коллекция с объектами
      */
-    Collection getAll();
+    Map<Long, Airport> getAll();
 
     /**
      * Возвращает обеъект с заданным айди
      * @param id - айди объекта
      * @return - объект
      */
-    Airport getById(Long id) throws ElementNotFoundException;
+    Airport getById(Long id);
 
 }

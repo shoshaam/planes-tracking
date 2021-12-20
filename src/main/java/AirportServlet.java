@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 public class AirportServlet extends HttpServlet{
 
@@ -20,26 +21,50 @@ public class AirportServlet extends HttpServlet{
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        try {
-            Object queryResult = receiveInformation(request, service);
-            String json = serializer.serialize(queryResult);
-            out.print(json);
-            out.flush();
-        } catch (ElementNotFoundException e) {
+
+        String jsonQueryResult = receiveInformation(request);
+        if (jsonQueryResult == null){
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
+
+        out.print(jsonQueryResult);
+        out.flush();
     }
 
-    private Object receiveInformation(HttpServletRequest request, AirportService service) throws ElementNotFoundException {
+    /**
+     * Метод определяет вид запроса (получение всех данных или объекта по id) и возвращает json объект
+     * @param request - запрос
+     * @return - json объект с полученной информацией
+     */
+    private String receiveInformation(HttpServletRequest request){
         if(request.getPathInfo() == null || request.getPathInfo().equals("/")){
-            return service.getAll();
+            return getAllAirports();
         }
         Long id = Long.parseLong(request.getPathInfo().replace("/", ""));
-        try {
-            return service.getById(id);
-        } catch (ElementNotFoundException e) {
-            //тут ещё должен быть логер, но его нет
-            throw e;
-        }
+        return getAirportById(id);
     }
+
+    /**
+     * Метод выполянет запрос получения данных о всех аэропортах и сериализаует Map, возвращая json
+     * @return - json данные всех аэропортов
+     */
+    private String getAllAirports(){
+        Map<Long, Airport> airports = service.getAll();
+        return serializer.serialize(airports);
+    }
+
+    /**
+     * Метод выполянет запрос получения данных об аэропорте с заданным id и сериализаует объект, возвращая json
+     * @param id - id аэропорта
+     * @return - json данные аэропорта с заданным id
+     */
+    private String getAirportById(Long id){
+        Airport airport = service.getById(id);
+        if (airport != null){
+            return serializer.serialize(airport);
+        }
+        return  null;
+    }
+
+
 }
