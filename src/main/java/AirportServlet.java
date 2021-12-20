@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
+import java.util.Optional;
 
 public class AirportServlet extends HttpServlet{
 
@@ -23,7 +24,7 @@ public class AirportServlet extends HttpServlet{
         PrintWriter out = response.getWriter();
 
         String jsonQueryResult = receiveInformation(request);
-        if (jsonQueryResult == null){
+        if (jsonQueryResult.equals("null")){
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
 
@@ -59,11 +60,8 @@ public class AirportServlet extends HttpServlet{
      * @return - json данные аэропорта с заданным id
      */
     private String getAirportById(Long id){
-        Airport airport = service.getById(id);
-        if (airport != null){
-            return serializer.serialize(airport);
-        }
-        return  null;
+        Optional<Airport> airport = service.getById(id);
+        return serializer.serialize(airport.orElse(null));
     }
 
 

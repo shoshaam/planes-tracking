@@ -1,4 +1,6 @@
+import javax.swing.text.html.Option;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Интерфейс сервисов аэропорта
@@ -16,6 +18,6 @@ public interface AirportService{
      * @param id - айди объекта
      * @return - объект
      */
-    Airport getById(Long id);
+    Optional<Airport> getById(Long id);
 
 }

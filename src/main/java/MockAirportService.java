@@ -21,7 +21,7 @@ public class MockAirportService implements AirportService{
     }
 
     @Override
-    public Airport getById(Long id){
-        return airports.get(id);
+    public Optional<Airport> getById(Long id){
+        return Optional.ofNullable(airports.get(id));
     }
 }
