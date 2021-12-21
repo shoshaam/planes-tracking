@@ -16,8 +16,8 @@ public class MockAirportService implements AirportService{
     }
 
     @Override
-    public Map<Long, Airport> getAll(){
-        return airports;
+    public List<Airport> getAll(){
+        return new ArrayList<>(airports.values());
     }
 
     @Override

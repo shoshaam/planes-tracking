@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 public class AirportServlet extends HttpServlet{
@@ -23,9 +23,20 @@ public class AirportServlet extends HttpServlet{
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
 
-        String jsonQueryResult = receiveInformation(request);
-        if (jsonQueryResult.equals("null")){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        String jsonQueryResult = "";
+        Long queryId = receiveRequestId(request);
+        if(queryId == -1){
+            List<Airport> airports = service.getAll();
+            jsonQueryResult = serializer.serialize(airports);
+        }
+        else {
+            Optional<Airport> airport = service.getById(queryId);
+            if (airport.isPresent()){
+                jsonQueryResult = serializer.serialize(airport.get());
+            }
+            else {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            }
         }
 
         out.print(jsonQueryResult);
@@ -33,36 +44,15 @@ public class AirportServlet extends HttpServlet{
     }
 
     /**
-     * Метод определяет вид запроса (получение всех данных или объекта по id) и возвращает json объект
-     * @param request - запрос
-     * @return - json объект с полученной информацией
+     * Метод получает id в эндпоинте
+     * @param request - объект запроса
+     * @return - Long id значение
      */
-    private String receiveInformation(HttpServletRequest request){
-        if(request.getPathInfo() == null || request.getPathInfo().equals("/")){
-            return getAllAirports();
+    private Long receiveRequestId(HttpServletRequest request) {
+        if (request.getPathInfo() == null || request.getPathInfo().equals("/")) {
+            return -1L;
         }
-        Long id = Long.parseLong(request.getPathInfo().replace("/", ""));
-        return getAirportById(id);
+        return Long.parseLong(request.getPathInfo().replace("/", ""));
     }
-
-    /**
-     * Метод выполянет запрос получения данных о всех аэропортах и сериализаует Map, возвращая json
-     * @return - json данные всех аэропортов
-     */
-    private String getAllAirports(){
-        Map<Long, Airport> airports = service.getAll();
-        return serializer.serialize(airports);
-    }
-
-    /**
-     * Метод выполянет запрос получения данных об аэропорте с заданным id и сериализаует объект, возвращая json
-     * @param id - id аэропорта
-     * @return - json данные аэропорта с заданным id
-     */
-    private String getAirportById(Long id){
-        Optional<Airport> airport = service.getById(id);
-        return serializer.serialize(airport.orElse(null));
-    }
-
 
 }

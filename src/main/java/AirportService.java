@@ -1,5 +1,4 @@
-import javax.swing.text.html.Option;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -11,7 +10,7 @@ public interface AirportService{
      * Возвращает список всех объектов
      * @return - коллекция с объектами
      */
-    Map<Long, Airport> getAll();
+    List<Airport> getAll();
 
     /**
      * Возвращает обеъект с заданным айди
