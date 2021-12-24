@@ -1,10 +1,9 @@
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Общий дао класс
  * @param <T> - домэйн класс
  */
-public abstract class DAO<T> {
-    public abstract T getById(int id) throws SQLException;
+public interface DAO<T> {
+    Map<Long, T> getAll();
 }

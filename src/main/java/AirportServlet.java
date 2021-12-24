@@ -14,7 +14,7 @@ public class AirportServlet extends HttpServlet{
 
     @Override
     public void init(ServletConfig config){
-        service = AirportServiceCreator.createService();
+        service = AirportServiceCreator.createService(Mode.NORMAL);
         serializer = JsonSerializerCreator.createSerializer();
     }
 
@@ -23,7 +23,7 @@ public class AirportServlet extends HttpServlet{
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
 
-        String jsonQueryResult = "";
+        String jsonQueryResult;
         Long queryId = receiveRequestId(request);
         if(queryId == -1){
             List<Airport> airports = service.getAll();
@@ -31,12 +31,15 @@ public class AirportServlet extends HttpServlet{
         }
         else {
             Optional<Airport> airport = service.getById(queryId);
-            if (airport.isPresent()){
-                jsonQueryResult = serializer.serialize(airport.get());
-            }
-            else {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            }
+            jsonQueryResult = airport.map(serializer::serialize).orElseGet(() -> {
+                try {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                } catch (IOException e) {
+                    //залогировать эксепшен
+                    e.printStackTrace();
+                }
+                return "";
+            });
         }
 
         out.print(jsonQueryResult);

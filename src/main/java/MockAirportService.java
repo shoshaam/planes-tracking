@@ -1,7 +1,7 @@
 import java.util.*;
 
 /**
- * Класс сервиса аэропорта. Бизнес логика
+ * Класс тестового сервиса аэропорта. Бизнес логика
  */
 public class MockAirportService implements AirportService{
 

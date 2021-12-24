@@ -1,11 +1,16 @@
 import java.sql.*;
+import java.util.Map;
 
 /**
  * Реализация дао для аэропорта
  */
-public class AirportDAO extends DAO<Airport> {
-
+public class AirportDAO implements DAO<Airport> {
     @Override
+    public Map<Long, Airport> getAll(){
+        return null;
+    }
+
+    /*@Override
     public Airport getById(int id) throws SQLException {
         Connection connection = MySQLConnection.getConnection();
         try {
@@ -18,10 +23,9 @@ public class AirportDAO extends DAO<Airport> {
                         resultSet.getString("airport_name"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new SQLException();
         }
         return null;
-    }
+    }*/
 
 }
