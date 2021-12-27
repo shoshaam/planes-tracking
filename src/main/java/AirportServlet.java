@@ -35,7 +35,7 @@ public class AirportServlet extends HttpServlet{
                 try {
                     response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 } catch (IOException e) {
-                    //throw new IOException(e);
+                    throw new RuntimeException(e);
                 }
                 return "";
             });
