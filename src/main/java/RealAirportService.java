@@ -1,4 +1,3 @@
-import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -6,7 +5,7 @@ import java.util.*;
  */
 public class RealAirportService implements AirportService{
 
-    private static DAO<Airport> dao = new MockAirportDAO();
+    private static DAO<Airport> dao = AirportDAOCreator.createDAO(Mode.TEST);
     private static Map<Long, Airport> airports = dao.getAll();
 
     @Override

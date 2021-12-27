@@ -23,7 +23,7 @@ public class AirportDAO implements DAO<Airport> {
                         resultSet.getString("airport_name"));
             }
         } catch (SQLException e) {
-            throw new SQLException();
+            throw new SQLException(e);
         }
         return null;
     }*/
