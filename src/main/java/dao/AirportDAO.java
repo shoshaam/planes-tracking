@@ -1,4 +1,7 @@
-import java.sql.*;
+package dao;
+
+import entity.Airport;
+
 import java.util.Map;
 
 /**
@@ -11,14 +14,14 @@ public class AirportDAO implements DAO<Airport> {
     }
 
     /*@Override
-    public Airport getById(int id) throws SQLException {
-        Connection connection = MySQLConnection.getConnection();
+    public entity.Airport getById(int id) throws SQLException {
+        Connection connection = database.MySQLConnection.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM airports WHERE id = ?");
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
-                return new Airport(resultSet.getLong("id"),
+                return new entity.Airport(resultSet.getLong("id"),
                         resultSet.getString("iata_code"),
                         resultSet.getString("airport_name"));
             }

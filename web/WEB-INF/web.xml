@@ -5,7 +5,7 @@
          version="4.0">
     <servlet>
         <servlet-name>AirportInfo</servlet-name>
-        <servlet-class>AirportServlet</servlet-class>
+        <servlet-class>servlet.AirportServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AirportInfo</servlet-name>

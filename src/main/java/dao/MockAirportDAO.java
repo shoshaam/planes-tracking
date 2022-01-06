@@ -1,10 +1,14 @@
+package dao;
+
+import entity.Airport;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Тестовая реализация дао для аэропорта
  */
-public class MockAirportDAO implements DAO<Airport>{
+public class MockAirportDAO implements DAO<Airport> {
     @Override
     public Map<Long, Airport> getAll(){
         Map<Long, Airport> airports = new HashMap<>();

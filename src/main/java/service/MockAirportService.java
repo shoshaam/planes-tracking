@@ -1,9 +1,13 @@
+package service;
+
+import entity.Airport;
+
 import java.util.*;
 
 /**
  * Класс тестового сервиса аэропорта. Бизнес логика
  */
-public class MockAirportService implements AirportService{
+public class MockAirportService implements AirportService {
 
     Map<Long, Airport> airports;
 
