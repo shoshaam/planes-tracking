@@ -1,6 +1,6 @@
 package service;
 
-import servlet.Mode;
+import web.Mode;
 
 /**
  * Фабрика для сервиса с информацией об аэропортах

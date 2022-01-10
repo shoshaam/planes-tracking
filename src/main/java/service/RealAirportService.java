@@ -2,8 +2,8 @@ package service;
 
 import dao.AirportDAOCreator;
 import dao.DAO;
-import entity.Airport;
-import servlet.Mode;
+import domain.Airport;
+import web.Mode;
 
 import java.util.*;
 
@@ -13,16 +13,15 @@ import java.util.*;
  */
 public class RealAirportService implements AirportService {
 
-    private static final DAO<Airport> dao = AirportDAOCreator.createDAO(Mode.TEST);
-    private static final Map<Long, Airport> airports = dao.getAll();
+    private static final DAO<Airport> dao = AirportDAOCreator.createDAO(Mode.NORMAL);
 
     @Override
     public List<Airport> getAll(){
-        return new ArrayList<>(airports.values());
+        return dao.getAll();
     }
 
     @Override
     public Optional<Airport> getById(Long id){
-        return Optional.ofNullable(airports.get(id));
+        return dao.getById(id);
     }
 }

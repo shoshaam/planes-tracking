@@ -1,11 +1,14 @@
 package dao;
 
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Общий дао класс
  * @param <T> - домэйн класс
  */
 public interface DAO<T> {
-    Map<Long, T> getAll();
+    List<T> getAll();
+
+    Optional<T> getById(long id);
 }

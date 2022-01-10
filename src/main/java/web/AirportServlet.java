@@ -1,6 +1,6 @@
-package servlet;
+package web;
 
-import entity.Airport;
+import domain.Airport;
 import json.JsonSerializerCreator;
 import json.Serializer;
 import service.AirportService;

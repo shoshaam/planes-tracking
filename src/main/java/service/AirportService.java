@@ -1,6 +1,6 @@
 package service;
 
-import entity.Airport;
+import domain.Airport;
 
 import java.util.List;
 import java.util.Optional;

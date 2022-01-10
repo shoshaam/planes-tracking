@@ -12,20 +12,22 @@ public class MySQLConnection{
 
     private static Connection connection;
 
-    static {
-        String user = "root";//Логин пользователя
-        String password = "Im1230255";//Пароль пользователя
-        String url = "jdbc:mysql://localhost/planes_tracking_db";//URL адрес
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
-            connection = DriverManager.getConnection(url, user, password);
-        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException
-                | IllegalAccessException | NoSuchMethodException throwables) {
-            throwables.printStackTrace();
-        }
+    private MySQLConnection(){
     }
 
     public static Connection getConnection(){
+        if (connection == null){
+            String url = "jdbc:mysql://localhost/planes_tracking_db";
+            String username = "root";
+            String password = "Im1230255";
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+                connection = DriverManager.getConnection(url, username, password);
+            } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException
+                    | IllegalAccessException | NoSuchMethodException throwables) {
+                throwables.printStackTrace();
+            }
+        }
         return connection;
     }
 }

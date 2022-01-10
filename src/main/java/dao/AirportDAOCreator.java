@@ -1,6 +1,6 @@
 package dao;
-import entity.Airport;
-import servlet.Mode;
+import domain.Airport;
+import web.Mode;
 
 /**
  * Дао фабрика для аэропорта

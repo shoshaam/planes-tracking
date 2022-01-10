@@ -1,4 +1,4 @@
-package entity;
+package domain;
 
 /**
  * Домэйн класс аэропорта

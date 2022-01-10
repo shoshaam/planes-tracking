@@ -1,34 +1,54 @@
 package dao;
 
-import entity.Airport;
+import domain.Airport;
 
-import java.util.Map;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Реализация дао для аэропорта
  */
 public class AirportDAO implements DAO<Airport> {
+    private static final Connection connection = database.MySQLConnection.getConnection();
+
     @Override
-    public Map<Long, Airport> getAll(){
-        return null;
+    public List<Airport> getAll(){
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM airports");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ArrayList<Airport> airports = new ArrayList<>();
+            while (resultSet.next()) {
+                airports.add(new Airport(resultSet.getLong("id"),
+                        resultSet.getString("iata_code"),
+                        resultSet.getString("airport_name")));
+            }
+            return airports;
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    /*@Override
-    public entity.Airport getById(int id) throws SQLException {
-        Connection connection = database.MySQLConnection.getConnection();
-        try {
+    @Override
+    public Optional<Airport> getById(long id){
+        try{
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM airports WHERE id = ?");
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
-                return new entity.Airport(resultSet.getLong("id"),
+                return Optional.of(new Airport(resultSet.getLong("id"),
                         resultSet.getString("iata_code"),
-                        resultSet.getString("airport_name"));
+                        resultSet.getString("airport_name")));
             }
-        } catch (SQLException e) {
-            throw e;
         }
-        return null;
-    }*/
-
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return Optional.empty();
+    }
 }
