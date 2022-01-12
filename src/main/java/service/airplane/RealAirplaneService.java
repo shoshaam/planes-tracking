@@ -8,6 +8,9 @@ import web.Mode;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Сервис для самолётов. Бизнес логика
+ */
 public class RealAirplaneService implements AirplaneService{
 
     private static final DAOAirportInterface dao = AirplaneDAOCreator.createDAO(Mode.NORMAL);

@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Реализация дао для самолёта
+ */
 public class AirplaneDAO implements DAOAirportInterface{
     private static final Connection connection = database.MySQLConnection.getConnection();
 

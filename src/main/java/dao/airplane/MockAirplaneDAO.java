@@ -4,6 +4,9 @@ import domain.Airplane;
 
 import java.util.*;
 
+/**
+ * Тестовая реализация дао для самолёта
+ */
 public class MockAirplaneDAO implements DAOAirportInterface {
 
     Map<Long, Airplane> airplanesWithPlace;

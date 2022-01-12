@@ -21,7 +21,7 @@ public class AirplaneServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config){
-        service = AirplaneServiceCreator.createService(Mode.TEST);
+        service = AirplaneServiceCreator.createService(Mode.NORMAL);
         serializer = JsonSerializerCreator.createSerializer();
     }
 

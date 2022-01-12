@@ -10,7 +10,7 @@ public class AirplaneServiceCreator {
     private static final RealAirplaneService realAirplaneService = new RealAirplaneService();
 
     public static AirplaneService createService(Mode mode){
-        if(mode == Mode.NORMAL){
+        if(mode == Mode.TEST){
             return mockAirplaneService;
         }
         return realAirplaneService;
