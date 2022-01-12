@@ -7,8 +7,17 @@
         <servlet-name>AirportInfo</servlet-name>
         <servlet-class>web.AirportServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AirplanesWithAirportInfo</servlet-name>
+        <servlet-class>web.AirplaneServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>AirportInfo</servlet-name>
         <url-pattern>/airport/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AirplanesWithAirportInfo</servlet-name>
+        <url-pattern>/airplane/*</url-pattern>
     </servlet-mapping>
 </web-app>

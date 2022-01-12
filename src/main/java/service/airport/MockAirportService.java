@@ -1,4 +1,4 @@
-package service;
+package service.airport;
 
 import domain.Airport;
 

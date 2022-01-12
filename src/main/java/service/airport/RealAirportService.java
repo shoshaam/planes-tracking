@@ -1,6 +1,6 @@
-package service;
+package service.airport;
 
-import dao.AirportDAOCreator;
+import dao.airport.AirportDAOCreator;
 import dao.DAO;
 import domain.Airport;
 import web.Mode;

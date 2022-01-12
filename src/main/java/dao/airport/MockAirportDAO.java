@@ -1,5 +1,6 @@
-package dao;
+package dao.airport;
 
+import dao.DAO;
 import domain.Airport;
 
 import java.util.*;

@@ -1,10 +1,10 @@
 package web;
 
-import domain.Airport;
+import domain.Airplane;
 import json.JsonSerializerCreator;
 import json.Serializer;
-import service.airport.AirportService;
-import service.airport.AirportServiceCreator;
+import service.airplane.AirplaneService;
+import service.airplane.AirplaneServiceCreator;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
@@ -15,18 +15,18 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Optional;
 
-public class AirportServlet extends HttpServlet{
-
+public class AirplaneServlet extends HttpServlet {
     private Serializer serializer;
-    private AirportService service;
+    private AirplaneService service;
 
     @Override
     public void init(ServletConfig config){
-        service = AirportServiceCreator.createService(Mode.NORMAL);
+        service = AirplaneServiceCreator.createService(Mode.TEST);
         serializer = JsonSerializerCreator.createSerializer();
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -34,12 +34,12 @@ public class AirportServlet extends HttpServlet{
         String jsonQueryResult;
         Long queryId = receiveRequestId(request);
         if(queryId == -1){
-            List<Airport> airports = service.getAll();
-            jsonQueryResult = serializer.serialize(airports);
+            List<Airplane> airplanesWithPlace = service.getAllWithPlace();
+            jsonQueryResult = serializer.serialize(airplanesWithPlace);
         }
         else {
-            Optional<Airport> airport = service.getById(queryId);
-            jsonQueryResult = airport.map(serializer::serialize).orElseGet(() -> {
+            Optional<Airplane> airplaneWithPlace = service.getByIdWithPlace(queryId);
+            jsonQueryResult = airplaneWithPlace.map(serializer::serialize).orElseGet(() -> {
                 try {
                     response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 } catch (IOException e) {
@@ -58,11 +58,10 @@ public class AirportServlet extends HttpServlet{
      * @param request - объект запроса
      * @return - Long id значение
      */
-    private Long receiveRequestId(HttpServletRequest request) {
-        if (request.getPathInfo() == null || request.getPathInfo().equals("/")) {
+    private Long receiveRequestId(HttpServletRequest request){
+        if (request.getPathInfo() == null || request.getPathInfo().equals("/")){
             return -1L;
         }
-        return Long.parseLong(request.getPathInfo().replace("/", ""));
+        return Long.parseLong(request.getPathInfo().replace("/",""));
     }
-
 }
