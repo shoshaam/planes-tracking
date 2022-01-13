@@ -6,10 +6,6 @@
     <servlet>
         <servlet-name>AirportInfo</servlet-name>
         <servlet-class>web.AirportServlet</servlet-class>
-        <init-param>
-            <param-name>airplanes</param-name>
-            <param-value>false</param-value>
-        </init-param>
     </servlet>
     <servlet>
         <servlet-name>AirplanesWithAirportInfo</servlet-name>

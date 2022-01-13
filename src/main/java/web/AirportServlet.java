@@ -68,6 +68,13 @@ public class AirportServlet extends HttpServlet{
         return Long.parseLong(request.getPathInfo().replace("/", ""));
     }
 
+    /**
+     * Метод проверяет параметр на пустоту
+     * В случае пустого значения, возвращает значение при инициализации
+     * @param request - объект запроса
+     * @param name - имя параметра
+     * @return - String значение параметра
+     */
     private String getRequestParameter(HttpServletRequest request, String name){
         String param = request.getParameter(name);
         return (param == null || param.isEmpty()) ? getServletConfig().getInitParameter(name) : param;
