@@ -7,6 +7,7 @@ import service.airport.AirportService;
 import service.airport.AirportServiceCreator;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,9 +22,10 @@ public class AirportServlet extends HttpServlet{
     private AirportService service;
 
     @Override
-    public void init(ServletConfig config){
+    public void init(ServletConfig config) throws ServletException {
         service = AirportServiceCreator.createService(Mode.NORMAL);
         serializer = JsonSerializerCreator.createSerializer();
+        super.init(config);
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -38,7 +40,8 @@ public class AirportServlet extends HttpServlet{
             jsonQueryResult = serializer.serialize(airports);
         }
         else {
-            Optional<Airport> airport = service.getById(queryId);
+            boolean airplanesIncluded = Boolean.parseBoolean(getRequestParameter(request, "airplanes"));
+            Optional<Airport> airport = (airplanesIncluded ? service.getAirplanesInformationById(queryId) : service.getById(queryId));
             jsonQueryResult = airport.map(serializer::serialize).orElseGet(() -> {
                 try {
                     response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -63,6 +66,11 @@ public class AirportServlet extends HttpServlet{
             return -1L;
         }
         return Long.parseLong(request.getPathInfo().replace("/", ""));
+    }
+
+    private String getRequestParameter(HttpServletRequest request, String name){
+        String param = request.getParameter(name);
+        return (param == null || param.isEmpty()) ? getServletConfig().getInitParameter(name) : param;
     }
 
 }

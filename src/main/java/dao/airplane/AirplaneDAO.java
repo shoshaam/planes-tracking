@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * Реализация дао для самолёта
  */
-public class AirplaneDAO implements DAOAirportInterface{
+public class AirplaneDAO implements DAOAirplaneInterface {
     private static final Connection connection = database.MySQLConnection.getConnection();
 
     @Override

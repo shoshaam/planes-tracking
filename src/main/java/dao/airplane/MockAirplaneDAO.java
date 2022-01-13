@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Тестовая реализация дао для самолёта
  */
-public class MockAirplaneDAO implements DAOAirportInterface {
+public class MockAirplaneDAO implements DAOAirplaneInterface {
 
     Map<Long, Airplane> airplanesWithPlace;
 

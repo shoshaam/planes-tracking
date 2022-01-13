@@ -17,10 +17,17 @@ public interface AirportService{
     List<Airport> getAll();
 
     /**
-     * Возвращает обеъект с заданным айди
+     * Возвращает объект с заданным айди
      * @param id - айди объекта
      * @return - объект
      */
     Optional<Airport> getById(Long id);
+
+    /**
+     * Возвращает объект с информацией об аэропорте с заданным айди и доп информацией о прилетающих/вылетающих самолётах
+     * @param id - айди объекта
+     * @return - объект
+     */
+    Optional<Airport> getAirplanesInformationById(Long id);
 
 }

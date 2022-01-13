@@ -1,7 +1,7 @@
 package service.airplane;
 
 import dao.airplane.AirplaneDAOCreator;
-import dao.airplane.DAOAirportInterface;
+import dao.airplane.DAOAirplaneInterface;
 import domain.Airplane;
 import web.Mode;
 
@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 public class RealAirplaneService implements AirplaneService{
 
-    private static final DAOAirportInterface dao = AirplaneDAOCreator.createDAO(Mode.NORMAL);
+    private static final DAOAirplaneInterface dao = AirplaneDAOCreator.createDAO(Mode.NORMAL);
 
     @Override
     public List<Airplane> getAll() {

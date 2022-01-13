@@ -9,6 +9,8 @@ public class Airplane {
     String registrationNumber;
     // текущее местонахождение, null по дефолту
     String place = null;
+    // текущий статус (прибывает/отбывает) null по дефолту
+    Status status = null;
 
     public Airplane(Long id, String productionLine, String registrationNumber) {
         this.id = id;
@@ -21,6 +23,13 @@ public class Airplane {
         this.productionLine = productionLine;
         this.registrationNumber = registrationNumber;
         this.place = place;
+    }
+
+    public Airplane(Long id, String productionLine, String registrationNumber, Status status) {
+        this.id = id;
+        this.productionLine = productionLine;
+        this.registrationNumber = registrationNumber;
+        this.status = status;
     }
 
     public Long getId() {
@@ -37,5 +46,9 @@ public class Airplane {
 
     public String getPlace() {
         return place;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 }
