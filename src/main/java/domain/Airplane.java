@@ -1,16 +1,21 @@
 package domain;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Домэйн класс самолёта
  */
 public class Airplane {
-    Long id;
-    String productionLine;
-    String registrationNumber;
+    private Long id;
+
+    @SerializedName(value = "production_line")
+    private String productionLine;
+    @SerializedName(value = "registration_number")
+    private String registrationNumber;
     // текущее местонахождение, null по дефолту
-    String place = null;
+    private String place = null;
     // текущий статус (прибывает/отбывает) null по дефолту
-    Status status = null;
+    private Status status = null;
 
     public Airplane(Long id, String productionLine, String registrationNumber) {
         this.id = id;

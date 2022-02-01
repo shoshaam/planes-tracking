@@ -1,6 +1,5 @@
 package dao.airport;
 
-import dao.DAO;
 import domain.Airplane;
 import domain.Airport;
 

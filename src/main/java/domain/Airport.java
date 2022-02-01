@@ -1,17 +1,20 @@
 package domain;
 
-import java.util.ArrayList;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
  * Домэйн класс аэропорта
  */
 public class Airport {
-    Long id;
-    String iataCode;
-    String airportName;
+    private Long id;
+    @SerializedName(value = "iata_code")
+    private String iataCode;
+    @SerializedName(value = "airport_name")
+    private String airportName;
     //самолёты в аэропорте, по дефолту null
-    List<Airplane> airplanes = null;
+    private List<Airplane> airplanes = null;
 
     public Airport(Long id, String iataCode, String airportName) {
         this.id = id;
