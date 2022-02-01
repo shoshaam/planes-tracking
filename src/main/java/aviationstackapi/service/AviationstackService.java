@@ -23,8 +23,8 @@ public class AviationstackService implements ApiService {
     private DAO<Airport> airportDAO = AirportDAOCreator.createDAO();
     private DAO<Flight> flightDAO = FlightDAOCreator.createDAO();
 
-    private ApiController<Airplane> airplaneApiController = AirplaneApiControllerCreator.createController(Mode.TEST);
-    private ApiController<Airport> airportsApiController = AirportApiControllerCreator.createController(Mode.TEST);
+    private ApiController<Airplane> airplaneApiController = AirplaneApiControllerCreator.createController(Mode.NORMAL);
+    private ApiController<Airport> airportsApiController = AirportApiControllerCreator.createController(Mode.NORMAL);
     private ApiController<Flight> flightsApiController = FlightApiControllerCreator.createController(Mode.NORMAL);
 
     @Override
