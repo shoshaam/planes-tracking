@@ -14,18 +14,21 @@ import domain.Flight;
 import web.Mode;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Рабочий сервис обновления данных бд
  */
 public class AviationstackService implements ApiService {
-    private DAO<Airplane> airplaneDAO = AirplaneDAOCreator.createDAO();
-    private DAO<Airport> airportDAO = AirportDAOCreator.createDAO();
-    private DAO<Flight> flightDAO = FlightDAOCreator.createDAO();
+    private final DAO<Airplane> airplaneDAO = AirplaneDAOCreator.createDAO();
+    private final DAO<Airport> airportDAO = AirportDAOCreator.createDAO();
+    private final DAO<Flight> flightDAO = FlightDAOCreator.createDAO();
 
-    private ApiController<Airplane> airplaneApiController = AirplaneApiControllerCreator.createController(Mode.NORMAL);
-    private ApiController<Airport> airportsApiController = AirportApiControllerCreator.createController(Mode.NORMAL);
-    private ApiController<Flight> flightsApiController = FlightApiControllerCreator.createController(Mode.NORMAL);
+    private final ApiController<Airplane> airplaneApiController = AirplaneApiControllerCreator.createController(Mode.NORMAL);
+    private final ApiController<Airport> airportsApiController = AirportApiControllerCreator.createController(Mode.NORMAL);
+    private final ApiController<Flight> flightsApiController = FlightApiControllerCreator.createController(Mode.NORMAL);
 
     @Override
     public void startUpdating() {
@@ -35,7 +38,10 @@ public class AviationstackService implements ApiService {
         List<Airport> airports = airportsApiController.getData();
         airportDAO.refreshData(airports);
 
-        List<Flight> flights = flightsApiController.getData();
-        flightDAO.refreshData(flights);
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.scheduleWithFixedDelay(() -> {
+            List<Flight> flights = flightsApiController.getData();
+            flightDAO.refreshData(flights);
+        }, 0, 30, TimeUnit.MINUTES);
     }
 }
